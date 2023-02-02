@@ -4,12 +4,9 @@ const Navbar = () => {
   return (
     <div>
       <section>
-        <div>
-          <img src="" alt="" />
-        </div>
-        <div>
+        {/* <div className="flex justify-end pt-5 pr-5 h-10 bg-slate-700">
           <p>User email</p>
-        </div>
+        </div> */}
       </section>
     </div>
   );
