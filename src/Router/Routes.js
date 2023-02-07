@@ -4,6 +4,7 @@ import DashboardLayout from "../components/Dashboard/DashboardLayout";
 import Home from "../components/Home";
 import StudentData from "../components/StudentData";
 import Main from "../Layouts/Main";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -16,15 +17,28 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: <DashboardLayout></DashboardLayout>,
+        element: (
+          <PrivateRoute>
+            <DashboardLayout></DashboardLayout>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/add-student",
-        element: <Addstudent></Addstudent>,
+        element: (
+          <PrivateRoute>
+            <Addstudent></Addstudent>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/student-data",
-        element: <StudentData></StudentData>,
+        element: (
+          <PrivateRoute>
+            <StudentData></StudentData>
+          </PrivateRoute>
+        ),
+        loader: () => fetch("http://localhost:5000/student-data"),
       },
     ],
   },

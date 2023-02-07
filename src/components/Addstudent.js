@@ -1,6 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import DashboardLayout from "./Dashboard/DashboardLayout";
+import { toast } from "react-hot-toast";
 
 const Addstudent = () => {
   const handleSubmit = (event) => {
@@ -19,16 +20,31 @@ const Addstudent = () => {
       city: event.target.city.value,
       pincode: event.target.pincode.value,
     };
-    console.log(studentInfo);
+
+    fetch("http://localhost:5000/add", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(studentInfo),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged > 0) {
+          toast.success("Add Student Sucessfull");
+        }
+        event.target.reset();
+        console.log(data);
+      });
   };
   return (
     <div>
       <Box component="main" sx={{ display: "flex", p: 1, marginTop: "50px" }}>
         <DashboardLayout />
         <div>
-          <section class="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
-            <h2 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">
-              Account settings
+          <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
+            <h2 className="text-lg font-semibold text-gray-700 capitalize dark:text-white">
+              Add Student
             </h2>
 
             <form onSubmit={handleSubmit}>
@@ -40,6 +56,7 @@ const Addstudent = () => {
                       type="text"
                       name="firstName"
                       placeholder="First Name"
+                      required
                       className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                     />
                   </div>
@@ -48,6 +65,7 @@ const Addstudent = () => {
                       type="text"
                       name="middleName"
                       placeholder="Middle Name"
+                      required
                       className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                     />
                   </div>
@@ -56,35 +74,50 @@ const Addstudent = () => {
                       type="text"
                       name="lastName"
                       placeholder="Last Name"
+                      required
                       className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                     />
                   </div>
                   <div>
                     <select
                       name="class"
+                      required
                       className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                     >
-                      <option value="VI-A">VI-A</option>
-                      <option value="VI-B">VI-B</option>
-                      <option value="VII-A">VII-A</option>
-                      <option value="IX-A">IX-A</option>
+                      <option value="I">I</option>
+                      <option value="II">II</option>
+                      <option value="III">III</option>
+                      <option value="IV">IV</option>
+                      <option value="V">V</option>
+                      <option value="VI">VI</option>
+                      <option value="VII">VII</option>
+                      <option value="VIII">VIII</option>
+                      <option value="IX">IX</option>
+                      <option value="X">X</option>
+                      <option value="XI">XI</option>
+                      <option value="XII">XII</option>
                     </select>
                   </div>
                   <div>
                     <select
                       name="division"
+                      required
                       className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                     >
-                      <option value="1st">First</option>
-                      <option value="2nd">Second</option>
-                      <option value="3rd">Third</option>
-                      <option value="average">average</option>
+                      <option value="A">A</option>
+                      <option value="B">B</option>
+                      <option value="C">C</option>
+                      <option value="D">D</option>
+                      <option value="E">E</option>
                     </select>
                   </div>
                   <div>
                     <input
-                      type="text"
+                      required
+                      type="number"
                       name="roll"
+                      min="0"
+                      max="99"
                       placeholder="Enter Roll Number in Digits"
                       className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                     />
@@ -99,6 +132,7 @@ const Addstudent = () => {
                       type="text"
                       name="address1"
                       placeholder="Address Line1"
+                      required
                       className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                     />
                   </div>
@@ -119,6 +153,7 @@ const Addstudent = () => {
                       type="text"
                       name="landmark"
                       placeholder="LandMark"
+                      required
                       className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                     />
                   </div>
@@ -127,6 +162,7 @@ const Addstudent = () => {
                       type="text"
                       name="city"
                       placeholder="City"
+                      required
                       className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                     />
                   </div>
@@ -135,6 +171,7 @@ const Addstudent = () => {
                       type="text"
                       name="pincode"
                       placeholder="Pincode"
+                      required
                       className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                     />
                   </div>

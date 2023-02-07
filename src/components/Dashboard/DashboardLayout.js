@@ -11,15 +11,26 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
+import InboxIcon from "@mui/icons-material/LogoutOutlined";
+import UserIcon from "@mui/icons-material/PeopleAltOutlined";
+import DataIcon from "@mui/icons-material/FormatListBulletedOutlined";
+import Acc from "@mui/icons-material/AccountBox";
 
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../AuthContext/UserContext";
 
 const drawerWidth = 240;
 
 export default function DashboardLayout() {
   const navigate = useNavigate();
+  const { user, logOut } = React.useContext(AuthContext);
+
+  const handleSignOut = () => {
+    logOut();
+    navigate("/");
+  };
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -27,12 +38,17 @@ export default function DashboardLayout() {
         <AppBar
           position="fixed"
           sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          style={{ backgroundColor: "#fff", color: "#000", boxShadow: "none" }}
         >
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              News
+              Resolute AI Software
             </Typography>
-            <Button color="inherit">Login</Button>
+            <Acc />
+            <Button color="inherit">
+              {" "}
+              {user?.email ? user?.email : "No email found"}{" "}
+            </Button>
           </Toolbar>
         </AppBar>
       </Box>
@@ -57,11 +73,19 @@ export default function DashboardLayout() {
                 navigate("/add-student");
               }}
             >
-              <ListItemButton>
+              <ListItemButton
+                sx={{
+                  ":hover": {
+                    bgcolor: "#F33823", // theme.palette.primary.main
+                    color: "white",
+                    borderRadius: "5px",
+                  },
+                }}
+              >
                 <ListItemIcon>
-                  <InboxIcon />
+                  <UserIcon />
                 </ListItemIcon>
-                <ListItemText primary="Home" />
+                <ListItemText primary="Add Student" />
               </ListItemButton>
             </ListItem>
             <ListItem
@@ -71,11 +95,40 @@ export default function DashboardLayout() {
                 navigate("/student-data");
               }}
             >
-              <ListItemButton>
+              <ListItemButton
+                sx={{
+                  ":hover": {
+                    bgcolor: "#F33823", // theme.palette.primary.main
+                    color: "white",
+                    borderRadius: "5px",
+                  },
+                }}
+              >
+                <ListItemIcon>
+                  <DataIcon />
+                </ListItemIcon>
+                <ListItemText primary="Manage Students" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => {}}
+            >
+              <ListItemButton
+                onClick={handleSignOut}
+                sx={{
+                  ":hover": {
+                    bgcolor: "#F33823", // theme.palette.primary.main
+                    color: "white",
+                    borderRadius: "5px",
+                  },
+                }}
+              >
                 <ListItemIcon>
                   <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary="Manage Student" />
+                <ListItemText primary="SignOut" />
               </ListItemButton>
             </ListItem>
           </List>

@@ -1,17 +1,16 @@
-import React, { useState } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import app from "../Firebase/firebase.config";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../AuthContext/UserContext";
 
 const Home = () => {
-  const auth = getAuth(app);
+  const { userSignIn } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Add your authentication logic here.
-    signInWithEmailAndPassword(auth, email, password)
+
+    userSignIn(email, password)
       .then((userCredential) => {
         const user = userCredential.user;
 
@@ -20,8 +19,8 @@ const Home = () => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        console.log(errorMessage);
       });
-    console.log(`Username: ${email}, Password: ${password}`);
   };
   return (
     <div>
