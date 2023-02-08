@@ -16,9 +16,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import Box from "@mui/material/Box";
 import DashboardLayout from "./Dashboard/DashboardLayout";
 import Toolbar from "@mui/material/Toolbar";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import ShowDialog from "./ShowDialog";
+import EditDailog from "./EditDailog";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -44,6 +45,8 @@ export default function StudentData() {
   const [displayUsers, setDiplayUsers] = useState(datas);
   const [open, setOpen] = useState(false);
   const [view, setView] = useState(null);
+  const navigate = useNavigate();
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -108,12 +111,18 @@ this item `);
                           handleClickOpen();
                           setView(user);
                         }}
-                        aria-label="edit"
+                        aria-label="view"
                         size="small"
                       >
                         <EyeIcon fontSize="small" color="warning" />
                       </IconButton>
-                      <IconButton aria-label="delete" size="small">
+                      <IconButton
+                        onClick={() => {
+                          navigate(`/edit/${user._id}`);
+                        }}
+                        aria-label="edit"
+                        size="small"
+                      >
                         <EditIcon fontSize="small" color="warning" />
                       </IconButton>
                       <IconButton

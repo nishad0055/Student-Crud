@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Addstudent from "../components/Addstudent";
 import DashboardLayout from "../components/Dashboard/DashboardLayout";
+import EditDailog from "../components/EditDailog";
 import Home from "../components/Home";
 import StudentData from "../components/StudentData";
 import Main from "../Layouts/Main";
@@ -39,6 +40,16 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: () => fetch("http://localhost:5000/student-data"),
+      },
+      {
+        path: "/edit/:id",
+        element: (
+          <PrivateRoute>
+            <EditDailog></EditDailog>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/student-data/${params.id}`),
       },
     ],
   },

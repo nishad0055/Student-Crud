@@ -178,8 +178,8 @@ const Addstudent = () => {
                 </div>
               </section>
 
-              <div class="flex justify-start mt-6">
-                <button class="px-14 py-2.5 leading-5 text-white bg-red-700 rounded-md focus:outline-none">
+              <div className="flex justify-start mt-6">
+                <button className="px-14 py-2.5 leading-5 text-white bg-red-700 rounded-md focus:outline-none">
                   Add Student
                 </button>
               </div>
