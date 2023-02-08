@@ -39,7 +39,8 @@ export const router = createBrowserRouter([
             <StudentData></StudentData>
           </PrivateRoute>
         ),
-        loader: () => fetch("http://localhost:5000/student-data"),
+        loader: () =>
+          fetch("https://student-server-nishad0055.vercel.app/student-data"),
       },
       {
         path: "/edit/:id",
@@ -49,7 +50,9 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/student-data/${params.id}`),
+          fetch(
+            `https://student-server-nishad0055.vercel.app/student-data/${params.id}`
+          ),
       },
     ],
   },

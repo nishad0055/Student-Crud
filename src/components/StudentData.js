@@ -60,7 +60,7 @@ export default function StudentData() {
 this item `);
 
     if (agree) {
-      fetch(`http://localhost:5000/add/${user}`, {
+      fetch(`https://student-server-nishad0055.vercel.app/add/${user}`, {
         method: "DELETE",
       })
         .then((res) => res.json())

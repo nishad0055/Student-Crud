@@ -15,7 +15,6 @@ const UserContext = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const userSignIn = (email, password) => {
-    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 

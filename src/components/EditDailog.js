@@ -12,13 +12,16 @@ const EditDailog = () => {
     const updateInfo = {
       name: event.target.name.value,
     };
-    fetch(`http://localhost:5000/student-data/${singleStd._id}`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(updateInfo),
-    })
+    fetch(
+      `https://student-server-nishad0055.vercel.app/student-data/${singleStd._id}`,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(updateInfo),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

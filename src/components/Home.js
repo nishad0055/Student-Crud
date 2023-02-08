@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthContext/UserContext";
 
 const Home = () => {
@@ -7,6 +7,8 @@ const Home = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/dashboard";
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -14,7 +16,7 @@ const Home = () => {
       .then((userCredential) => {
         const user = userCredential.user;
 
-        navigate("/dashboard");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         const errorCode = error.code;

@@ -21,7 +21,7 @@ const Addstudent = () => {
       pincode: event.target.pincode.value,
     };
 
-    fetch("http://localhost:5000/add", {
+    fetch("https://student-server-nishad0055.vercel.app/add", {
       method: "POST",
       headers: {
         "content-type": "application/json",
